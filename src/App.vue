@@ -1,28 +1,63 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+    <br />
+    <homepage
+      v-if="submitted === false"
+      v-on:formsubmitted="formsubmit($event)"
+    />
+    <QuestionBox v-else :questions="questions" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from "./components/Header";
+import homepage from "./components/homepage";
+import QuestionBox from "./components/QuestionBox";
+// import Footer from "./components/Footer";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Header,
+    homepage,
+    QuestionBox,
+  },
+  data() {
+    return {
+      submitted: false,
+      questions: [],
+    };
+  },
+  methods: {
+    async formsubmit(url) {
+      let response = await fetch(url);
+      let result = await response.json();
+      console.log(result);
+      this.questions = result.results;
+      console.log(this.questions);
+      this.submitted = true;
+    },
+  },
+};
 </script>
 
 <style>
+html,
+body {
+  min-height: 100%;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 </style>
