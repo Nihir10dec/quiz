@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # first-app
 
 ## Project setup
