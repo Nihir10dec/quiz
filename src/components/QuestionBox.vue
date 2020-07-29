@@ -208,6 +208,7 @@ export default {
   background-color: lightgreen;
 }
 .wrong {
-  background-color: indianred;
+  background-color: #ff4d4d;
+  color: white;
 }
 </style>

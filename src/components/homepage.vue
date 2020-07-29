@@ -56,6 +56,7 @@ export default {
   async mounted() {
     let response = await fetch("https://opentdb.com/api_category.php");
     let data = await response.json();
+    data.trivia_categories.sort((a, b) => (a.name > b.name ? 1 : -1));
     this.categories = data.trivia_categories.map((a) => ({
       value: a.id,
       text: a.name,
