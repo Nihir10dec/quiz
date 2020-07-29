@@ -18,6 +18,7 @@ import QuestionBox from "./components/QuestionBox";
 
 export default {
   name: "App",
+  title: "Time For Quiz",
   components: {
     Header,
     homepage,
