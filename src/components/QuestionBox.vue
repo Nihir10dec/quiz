@@ -1,23 +1,35 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col sm="2">
+      <b-col sm="3">
         <div>
-          <p>Question Navigation</p>
-          <b-avatar
-            class="ml-2 mb-1"
-            size="lg"
-            v-for="i in questions.length"
-            :key="i"
-            button
-            variant="info"
-            @click="toogleQuestion(i)"
-            :class="selectedAnswer[i - 1] !== undefined ? 'answered' : ''"
-            >{{ i }}</b-avatar
-          >
+          <b-card-group deck>
+            <b-card header="Question Navigation" header-tag="header">
+              <b-list-group-item>
+                <b-avatar variant="info" text=" "></b-avatar> Question
+                <b-avatar class="answered" text=" "></b-avatar> Attempted
+              </b-list-group-item>
+              <b-list-group-item>
+                <b-avatar class="correct" text=" "></b-avatar> Correct
+                <b-avatar class="wrong" text=" "></b-avatar> Wrong
+              </b-list-group-item>
+              <hr />
+              <b-avatar
+                class="ml-2 mb-1"
+                size="lg"
+                v-for="i in questions.length"
+                :key="i"
+                button
+                variant="info"
+                @click="toogleQuestion(i)"
+                :class="badgeClass(i)"
+                >{{ i }}</b-avatar
+              >
+            </b-card>
+          </b-card-group>
         </div>
       </b-col>
-      <b-col sm="7">
+      <b-col sm="6">
         <b-jumbotron bg-variant="default">
           <template v-slot:lead
             >Q{{ currentQuestion + 1 }}
@@ -95,6 +107,7 @@ export default {
       selectedAnswer: [],
       allanswers: [],
       quizSubmitted: false,
+      questionAnswer: [],
       score: 0,
       attempted: 0,
     };
@@ -117,7 +130,7 @@ export default {
     },
     ansclass(i) {
       let correctindex = this.allanswers[this.currentQuestion].indexOf(
-        this.questions[this.currentQuestion].correct_answer
+        decodeURIComponent(this.questions[this.currentQuestion].correct_answer)
       );
       if (this.quizSubmitted && correctindex === i) {
         return "correct";
@@ -136,15 +149,31 @@ export default {
         return "selected";
       }
     },
+    badgeClass(i) {
+      if (this.quizSubmitted) {
+        return this.questionAnswer[i - 1];
+      } else {
+        if (this.selectedAnswer[i - 1] !== undefined) {
+          return "answered";
+        } else return "";
+      }
+    },
     quizSUbmit() {
       this.quizSubmitted = true;
       for (let j = 0; j < this.questions.length; j++) {
         if (this.selectedAnswer[j] !== undefined) {
+          console.log(
+            this.allanswers[j][this.selectedAnswer[j]],
+            decodeURIComponent(this.questions[j].correct_answer)
+          );
           if (
             this.allanswers[j][this.selectedAnswer[j]] ===
-            this.questions[j].correct_answer
+            decodeURIComponent(this.questions[j].correct_answer)
           ) {
+            this.questionAnswer[j] = "correct";
             this.score++;
+          } else {
+            this.questionAnswer[j] = "wrong";
           }
           this.attempted++;
         }
