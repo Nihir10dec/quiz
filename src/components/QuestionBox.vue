@@ -32,13 +32,13 @@
       <b-col sm="6">
         <b-jumbotron bg-variant="default">
           <template v-slot:lead
-            >Q{{ currentQuestion + 1 }}
+            >Q.{{ currentQuestion + 1 }}) &nbsp;
             {{
               decodeURIComponent(
                 encodeURIComponent(questions[currentQuestion].question)
               )
-            }}</template
-          >
+            }}
+          </template>
 
           <hr class="my-4" />
 
