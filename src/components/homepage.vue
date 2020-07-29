@@ -32,7 +32,6 @@
           </b-form-group>
           <br />
 
-          <br />
           <b-button type="submit" variant="primary">Submit</b-button>&nbsp;
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
