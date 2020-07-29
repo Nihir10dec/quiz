@@ -6,10 +6,10 @@
           <b-card-group deck>
             <b-card header="Question Navigation" header-tag="header">
               <b-list-group-item>
-                <b-avatar variant="info" text=" "></b-avatar> Question
+                <b-avatar variant="info" text=" "></b-avatar> Unattempted
                 <b-avatar class="answered" text=" "></b-avatar> Attempted
               </b-list-group-item>
-              <b-list-group-item>
+              <b-list-group-item v-if="quizSubmitted">
                 <b-avatar class="correct" text=" "></b-avatar> Correct
                 <b-avatar class="wrong" text=" "></b-avatar> Wrong
               </b-list-group-item>
