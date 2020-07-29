@@ -13,12 +13,20 @@
             variant="info"
             @click="toogleQuestion(i)"
             :class="selectedAnswer[i - 1] !== undefined ? 'answered' : ''"
-          >{{ i }}</b-avatar>
+            >{{ i }}</b-avatar
+          >
         </div>
       </b-col>
       <b-col sm="7">
-        <b-jumbotron bg-variant="info">
-          <template v-slot:lead>Q{{ currentQuestion + 1 }} {{ questions[currentQuestion].question }}</template>
+        <b-jumbotron bg-variant="default">
+          <template v-slot:lead
+            >Q{{ currentQuestion + 1 }}
+            {{
+              decodeURIComponent(
+                encodeURIComponent(questions[currentQuestion].question)
+              )
+            }}</template
+          >
 
           <hr class="my-4" />
 
@@ -29,13 +37,23 @@
               :key="answer"
               @click.prevent="selectAnswer(index)"
               :class="ansclass(index)"
-            >{{ index + 1 }}.) {{ answer }}</b-list-group-item>
+              >{{ index + 1 }}.) {{ answer }}</b-list-group-item
+            >
           </b-list-group>
           <br />
-          <b-button variant="success" @click="prevquestion" :disabled="currentQuestion === 0">
-            <b-icon icon="arrow-left-circle-fill"></b-icon>&nbsp; Prev
-          </b-button>&nbsp;
-          <b-button variant="primary" @click="quizSUbmit" :disabled="quizSubmitted">Submit</b-button>&nbsp;
+          <b-button
+            variant="success"
+            @click="prevquestion"
+            :disabled="currentQuestion === 0"
+          >
+            <b-icon icon="arrow-left-circle-fill"></b-icon>&nbsp; Prev </b-button
+          >&nbsp;
+          <b-button
+            variant="primary"
+            @click="quizSUbmit"
+            :disabled="quizSubmitted"
+            >Submit</b-button
+          >&nbsp;
           <b-button
             variant="success"
             @click="nextquestion"
@@ -49,11 +67,18 @@
       <b-col sm="3" v-if="quizSubmitted">
         <b-card-group deck>
           <b-card header="SCORES" header-tag="header">
-            <b-list-group-item variant="success">Score: {{score}} / {{questions.length}}</b-list-group-item>
-            <b-list-group-item variant="primary">Attempted: {{attempted}}</b-list-group-item>
-            <b-list-group-item
-              variant="warning"
-            >Accuracy: {{Number((score/attempted*100).toFixed(2))}}</b-list-group-item>
+            <b-list-group-item variant="success"
+              >Score: {{ score }} / {{ questions.length }}</b-list-group-item
+            >
+            <b-list-group-item variant="primary"
+              >Attempted: {{ attempted }}</b-list-group-item
+            >
+            <b-list-group-item variant="warning"
+              >Accuracy:
+              {{
+                Number(((score / attempted) * 100).toFixed(2))
+              }}%</b-list-group-item
+            >
           </b-card>
         </b-card-group>
       </b-col>
@@ -126,14 +151,17 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
     // console.log(this.questions);
     for (let j = 0; j < this.questions.length; j++) {
       let answers = [...this.questions[j].incorrect_answers];
       answers.push(this.questions[j].correct_answer);
       console.log(this.questions[j].correct_answer);
       answers.sort(() => Math.random() - 0.5);
-      this.allanswers[j] = answers;
+      for (let a = 0; a < answers.length; a++) {
+        answers[a] = decodeURIComponent(answers[a]);
+      }
+      this.allanswers[j] = await answers;
     }
     console.log(this.allanswers);
   },

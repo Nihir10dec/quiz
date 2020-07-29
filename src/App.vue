@@ -35,7 +35,12 @@ export default {
       let result = await response.json();
       console.log(result);
       this.questions = result.results;
-      console.log(this.questions);
+      for (let k = 0; k < this.questions.length; k++) {
+        decodeURIComponent(this.questions[k].question);
+        this.questions[k].question = decodeURIComponent(
+          this.questions[k].question
+        );
+      }
       this.submitted = true;
     },
   },

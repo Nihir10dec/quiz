@@ -9,6 +9,7 @@
             <b-form-input
               v-model="noofquestion"
               required
+              autofocus
               placeholder="Enter number of Questions you want..."
             ></b-form-input>
           </b-form-group>
@@ -70,7 +71,8 @@ export default {
         "&category=" +
         this.category +
         "&difficulty=" +
-        this.difficulty;
+        this.difficulty +
+        "&encode=url3986";
 
       this.$emit("formsubmitted", url);
     },
