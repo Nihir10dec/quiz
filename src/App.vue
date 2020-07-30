@@ -4,9 +4,17 @@
     <br />
     <homepage v-if="submitted === false && error===false" v-on:formsubmitted="formsubmit($event)" />
     <QuestionBox v-else-if="error===false" :questions="questions" />
-    <div v-if="error">
-      <h1>Some error occured....</h1>
-      <h2>Please try to reduce the number of Question in this category or try some other category..</h2>
+    <div class="container" v-if="error">
+      <h1 class="text-danger">
+        Ooppss...!! Some Error Occured..
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+      </h1>
+      <h2
+        class="text-warning"
+      >Please try to reduce the number of Question in this category or try some other category..</h2>
+      <h2>
+        <a class="btn btn-primary btn-lg" href="/">Go Back</a>
+      </h2>
     </div>
   </div>
 </template>
