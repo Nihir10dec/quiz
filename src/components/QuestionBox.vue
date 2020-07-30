@@ -6,12 +6,12 @@
           <b-card-group deck>
             <b-card header="Question Navigation" header-tag="header">
               <b-list-group-item>
-                <b-avatar variant="info" text=" "></b-avatar> Unattempted
-                <b-avatar class="answered" text=" "></b-avatar> Attempted
+                <b-avatar variant="info" text=" "></b-avatar>Unattempted
+                <b-avatar class="answered" text=" "></b-avatar>Attempted
               </b-list-group-item>
               <b-list-group-item v-if="quizSubmitted">
-                <b-avatar class="correct" text=" "></b-avatar> Correct
-                <b-avatar class="wrong" text=" "></b-avatar> Wrong
+                <b-avatar class="correct" text=" "></b-avatar>Correct
+                <b-avatar class="wrong" text=" "></b-avatar>Wrong
               </b-list-group-item>
               <hr />
               <b-avatar
@@ -23,20 +23,19 @@
                 variant="info"
                 @click="toogleQuestion(i)"
                 :class="badgeClass(i)"
-                >{{ i }}</b-avatar
-              >
+              >{{ i }}</b-avatar>
             </b-card>
           </b-card-group>
         </div>
       </b-col>
       <b-col sm="6">
         <b-jumbotron bg-variant="default">
-          <template v-slot:lead
-            >Q.{{ currentQuestion + 1 }}) &nbsp;
+          <template v-slot:lead>
+            Q.{{ currentQuestion + 1 }}) &nbsp;
             {{
-              decodeURIComponent(
-                encodeURIComponent(questions[currentQuestion].question)
-              )
+            decodeURIComponent(
+            encodeURIComponent(questions[currentQuestion].question)
+            )
             }}
           </template>
 
@@ -49,23 +48,13 @@
               :key="answer"
               @click.prevent="selectAnswer(index)"
               :class="ansclass(index)"
-              >{{ index + 1 }}.) {{ answer }}</b-list-group-item
-            >
+            >{{ index + 1 }}.) {{ answer }}</b-list-group-item>
           </b-list-group>
           <br />
-          <b-button
-            variant="success"
-            @click="prevquestion"
-            :disabled="currentQuestion === 0"
-          >
-            <b-icon icon="arrow-left-circle-fill"></b-icon>&nbsp; Prev </b-button
-          >&nbsp;
-          <b-button
-            variant="primary"
-            @click="quizSUbmit"
-            :disabled="quizSubmitted"
-            >Submit</b-button
-          >&nbsp;
+          <b-button variant="success" @click="prevquestion" :disabled="currentQuestion === 0">
+            <b-icon icon="arrow-left-circle-fill"></b-icon>&nbsp; Prev
+          </b-button>&nbsp;
+          <b-button variant="primary" @click="quizSUbmit" :disabled="quizSubmitted">Submit</b-button>&nbsp;
           <b-button
             variant="success"
             @click="nextquestion"
@@ -79,18 +68,14 @@
       <b-col sm="3" v-if="quizSubmitted">
         <b-card-group deck>
           <b-card header="SCORES" header-tag="header">
-            <b-list-group-item variant="success"
-              >Score: {{ score }} / {{ questions.length }}</b-list-group-item
-            >
-            <b-list-group-item variant="primary"
-              >Attempted: {{ attempted }}</b-list-group-item
-            >
-            <b-list-group-item variant="warning"
-              >Accuracy:
+            <b-list-group-item variant="success">Score: {{ score }} / {{ questions.length }}</b-list-group-item>
+            <b-list-group-item variant="primary">Attempted: {{ attempted }}</b-list-group-item>
+            <b-list-group-item variant="warning">
+              Accuracy:
               {{
-                Number(((score / attempted) * 100).toFixed(2))
-              }}%</b-list-group-item
-            >
+              Number(((score / attempted) * 100).toFixed(2))
+              }}%
+            </b-list-group-item>
           </b-card>
         </b-card-group>
       </b-col>
@@ -185,14 +170,14 @@ export default {
     for (let j = 0; j < this.questions.length; j++) {
       let answers = [...this.questions[j].incorrect_answers];
       answers.push(this.questions[j].correct_answer);
-      console.log(this.questions[j].correct_answer);
+      // console.log(this.questions[j].correct_answer);
       answers.sort(() => Math.random() - 0.5);
       for (let a = 0; a < answers.length; a++) {
         answers[a] = decodeURIComponent(answers[a]);
       }
       this.allanswers[j] = await answers;
     }
-    console.log(this.allanswers);
+    // console.log(this.allanswers);
   },
 };
 </script>

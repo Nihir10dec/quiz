@@ -12,6 +12,7 @@
               type="number"
               required
               autofocus
+              max="50"
               placeholder="Enter number of Questions you want..."
             ></b-form-input>
           </b-form-group>
@@ -41,7 +42,7 @@ export default {
     return {
       noofquestion: 10,
       difficulties: [
-        { value: null, text: "Please select an option" },
+        { value: "any", text: "Any Difficulty" },
         "Easy",
         "Medium",
         "Hard",
@@ -60,7 +61,7 @@ export default {
       value: a.id,
       text: a.name,
     }));
-    this.categories.unshift({ value: null, text: "Please select an option" });
+    this.categories.unshift({ value: "any", text: "Any Category" });
   },
   methods: {
     async onSubmit(e) {
@@ -69,11 +70,14 @@ export default {
       let url =
         "https://opentdb.com/api.php?amount=" +
         this.noofquestion +
-        "&category=" +
-        this.category +
-        "&difficulty=" +
-        this.difficulty.toLowerCase() +
         "&encode=url3986";
+      if (this.category !== "any") {
+        url += "&category=" + this.category;
+      }
+      if (this.difficulty !== "any") {
+        url += "&difficulty=" + this.difficulty.toLowerCase();
+      }
+      // console.log(url);
 
       this.$emit("formsubmitted", url);
     },

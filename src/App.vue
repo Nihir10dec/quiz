@@ -2,11 +2,12 @@
   <div id="app">
     <Header />
     <br />
-    <homepage
-      v-if="submitted === false"
-      v-on:formsubmitted="formsubmit($event)"
-    />
-    <QuestionBox v-else :questions="questions" />
+    <homepage v-if="submitted === false && error===false" v-on:formsubmitted="formsubmit($event)" />
+    <QuestionBox v-else-if="error===false" :questions="questions" />
+    <div v-if="error">
+      <h1>Some error occured....</h1>
+      <h2>Please try to reduce the number of Question in this category or try some other category..</h2>
+    </div>
   </div>
 </template>
 
@@ -28,21 +29,26 @@ export default {
     return {
       submitted: false,
       questions: [],
+      error: false,
     };
   },
   methods: {
     async formsubmit(url) {
       let response = await fetch(url);
       let result = await response.json();
-      console.log(result);
-      this.questions = result.results;
-      for (let k = 0; k < this.questions.length; k++) {
-        decodeURIComponent(this.questions[k].question);
-        this.questions[k].question = decodeURIComponent(
-          this.questions[k].question
-        );
+      // console.log(result);
+      if (result.response_code === 0) {
+        this.questions = result.results;
+        for (let k = 0; k < this.questions.length; k++) {
+          decodeURIComponent(this.questions[k].question);
+          this.questions[k].question = decodeURIComponent(
+            this.questions[k].question
+          );
+        }
+        this.submitted = true;
+      } else {
+        this.error = true;
       }
-      this.submitted = true;
     },
   },
 };
