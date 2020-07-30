@@ -76,6 +76,26 @@
               Number(((score / attempted) * 100).toFixed(2))
               }}%
             </b-list-group-item>
+            <b-list-group-item variant="suceess" v-if="score/questions.length >= 0.75">
+              Congratulation...!! You have performed very well. Keep Shining
+              <i
+                class="fa fa-smile-o"
+                aria-hidden="true"
+              ></i>
+            </b-list-group-item>
+            <b-list-group-item variant="suceess" v-else-if="score/attempted >= 0.75">
+              That's a great accuracy...!!
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </b-list-group-item>
+            <b-list-group-item
+              variant="warning"
+              v-else-if="score/questions.length >= 0.5"
+            >You can perform much better...!!</b-list-group-item>
+            <b-list-group-item variant="danger" v-else-if="score/questions.length < 0.5">
+              That's not quite impressive..
+              <i class="fa fa-frown-o" aria-hidden="true"></i>
+              Please try again with lesser difficulty..
+            </b-list-group-item>
           </b-card>
         </b-card-group>
       </b-col>
