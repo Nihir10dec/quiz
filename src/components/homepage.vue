@@ -1,9 +1,10 @@
 <template>
   <b-container>
-    <h1>Please Select What type of Quiz You want to continue with..</h1>
+    <h1 class="text-primary">Please Select What type of Quiz You want to continue with..</h1>
     <hr />
     <b-row>
-      <b-col sm="9" offset="1">
+      <b-col sm="1"></b-col>
+      <b-col sm="10">
         <b-form @submit="onSubmit" @reset="onReset" method="post">
           <b-form-group label="No of Questions:">
             <b-form-input
@@ -16,19 +17,11 @@
           </b-form-group>
 
           <b-form-group label="Category:">
-            <b-form-select
-              v-model="category"
-              :options="categories"
-              required
-            ></b-form-select>
+            <b-form-select v-model="category" :options="categories" required></b-form-select>
           </b-form-group>
 
           <b-form-group label="Difficulty:">
-            <b-form-select
-              v-model="difficulty"
-              :options="difficulties"
-              required
-            ></b-form-select>
+            <b-form-select v-model="difficulty" :options="difficulties" required></b-form-select>
           </b-form-group>
           <br />
 
@@ -36,6 +29,7 @@
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
       </b-col>
+      <b-col sm="1"></b-col>
     </b-row>
   </b-container>
 </template>
@@ -46,7 +40,12 @@ export default {
   data() {
     return {
       noofquestion: 10,
-      difficulties: ["Easy", "Medium", "Hard"],
+      difficulties: [
+        { value: null, text: "Please select an option" },
+        "Easy",
+        "Medium",
+        "Hard",
+      ],
       difficulty: null,
       categories: [],
       category: null,
@@ -61,6 +60,7 @@ export default {
       value: a.id,
       text: a.name,
     }));
+    this.categories.unshift({ value: null, text: "Please select an option" });
   },
   methods: {
     async onSubmit(e) {
