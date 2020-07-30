@@ -43,14 +43,28 @@
           <hr class="my-4" />
 
           <b-list-group>
-            <b-list-group-item
-              button
-              v-for="(answer, index) in allanswers[currentQuestion]"
-              :key="answer"
-              @click.prevent="selectAnswer(index)"
-              :class="ansclass(index)"
-            >{{ index + 1 }}.) {{ answer }}</b-list-group-item>
+            <div v-if="optionLoaded">
+              <b-list-group-item
+                button
+                v-for="(answer, index) in allanswers[currentQuestion]"
+                :key="answer"
+                @click.prevent="selectAnswer(index)"
+                :class="ansclass(index)"
+              >{{ index + 1 }}.) {{ answer }}</b-list-group-item>
+            </div>
+
+            <div v-else>
+              <b-button variant="primary" disabled>
+                <b-spinner small type="grow"></b-spinner>&nbsp; Loading...
+              </b-button>&nbsp;
+              <span style="fontSize:1.75rem" class="text-primary">the options for you...</span>
+
+              <h3
+                class="text-info"
+              >Until then please check other question and come back to this one..</h3>
+            </div>
           </b-list-group>
+
           <br />
           <b-button variant="success" @click="prevquestion" :disabled="currentQuestion === 0">
             <b-icon icon="arrow-left-circle-fill"></b-icon>&nbsp; Prev
@@ -65,34 +79,42 @@
             <b-icon icon="arrow-right-circle-fill"></b-icon>
           </b-button>
         </b-jumbotron>
+        <a href="/">
+          <b-button v-if="quizSubmitted" class="mb-3" variant="info">New Quiz</b-button>
+        </a>
       </b-col>
       <b-col sm="3" v-if="quizSubmitted">
         <b-card-group deck>
           <b-card header="SCORES" header-tag="header">
             <b-list-group-item variant="success">Score: {{ score }} / {{ questions.length }}</b-list-group-item>
-            <b-list-group-item variant="primary">Attempted: {{ attempted }} / {{ questions.length }}</b-list-group-item>
+            <b-list-group-item variant="primary">
+              Attempted: {{ attempted }} /
+              {{ questions.length }}
+            </b-list-group-item>
             <b-list-group-item variant="warning">
               Accuracy:
-              {{
-              Number(((score / attempted) * 100).toFixed(2))
-              }}%
+              {{ Number(((score / attempted) * 100).toFixed(2)) }}%
             </b-list-group-item>
-            <b-list-group-item variant="suceess" v-if="score/questions.length >= 0.75">
+            <b-list-group-item variant="suceess" v-if="score / questions.length >= 0.85">
               Congratulation...!! You have performed very well. Keep Shining
               <i
                 class="fa fa-smile-o"
                 aria-hidden="true"
               ></i>
             </b-list-group-item>
-            <b-list-group-item variant="suceess" v-else-if="score/attempted >= 0.75">
+            <b-list-group-item variant="suceess" v-else-if="score / attempted >= 0.75">
               That's a great accuracy...!!
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </b-list-group-item>
+            <b-list-group-item variant="warning" v-else-if="score / questions.length >= 0.65">
+              You performed well...!!
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
             </b-list-group-item>
             <b-list-group-item
               variant="warning"
-              v-else-if="score/questions.length >= 0.5"
+              v-else-if="score / questions.length >= 0.5"
             >You can perform much better...!!</b-list-group-item>
-            <b-list-group-item variant="danger" v-else-if="score/questions.length < 0.5">
+            <b-list-group-item variant="danger" v-else-if="score / questions.length < 0.5">
               That's not quite impressive..
               <i class="fa fa-frown-o" aria-hidden="true"></i>
               Please try again with lesser difficulty..
@@ -116,6 +138,7 @@ export default {
       questionAnswer: [],
       score: 0,
       attempted: 0,
+      optionLoaded: false,
     };
   },
   props: {
@@ -127,6 +150,9 @@ export default {
     },
     nextquestion() {
       this.currentQuestion++;
+      if (!this.optionLoaded) {
+        this.optionLoaded = true;
+      }
     },
     selectAnswer(i) {
       this.selectedAnswer[this.currentQuestion] = i;
