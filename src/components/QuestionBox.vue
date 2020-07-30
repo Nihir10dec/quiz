@@ -29,6 +29,7 @@
         </div>
       </b-col>
       <b-col sm="6">
+        <h3 class="text-info">Please Submit after answering all questions you want..</h3>
         <b-jumbotron bg-variant="default">
           <template v-slot:lead>
             Q.{{ currentQuestion + 1 }}) &nbsp;
