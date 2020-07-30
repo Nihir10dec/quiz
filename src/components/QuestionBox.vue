@@ -69,7 +69,7 @@
         <b-card-group deck>
           <b-card header="SCORES" header-tag="header">
             <b-list-group-item variant="success">Score: {{ score }} / {{ questions.length }}</b-list-group-item>
-            <b-list-group-item variant="primary">Attempted: {{ attempted }}</b-list-group-item>
+            <b-list-group-item variant="primary">Attempted: {{ attempted }} / {{ questions.length }}</b-list-group-item>
             <b-list-group-item variant="warning">
               Accuracy:
               {{
