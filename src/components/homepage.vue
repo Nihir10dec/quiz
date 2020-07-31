@@ -1,10 +1,10 @@
 <template>
   <b-container>
-    <h1 class="text-primary">Please Select What type of Quiz You want to continue with..</h1>
+    <h1 class="text-primary">Please select the type of Quiz You want..</h1>
     <hr />
     <b-row>
-      <b-col sm="1"></b-col>
-      <b-col sm="10">
+      <b-col sm="2"></b-col>
+      <b-col sm="8">
         <b-form @submit="onSubmit" @reset="onReset" method="post">
           <b-form-group label="No of Questions:">
             <b-form-input
@@ -30,7 +30,7 @@
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
       </b-col>
-      <b-col sm="1"></b-col>
+      <b-col sm="2"></b-col>
     </b-row>
   </b-container>
 </template>

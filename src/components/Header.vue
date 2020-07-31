@@ -11,7 +11,8 @@
           target="_blank"
           class="btn btn-primary ml-2"
         >
-          <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+          Linked
+          <i class="fa fa-linkedin-square fa-lg" aria-hidden="true">&nbsp;</i>
         </a>
         &nbsp;&nbsp;
         <a
@@ -19,7 +20,8 @@
           target="_blank"
           class="btn btn-secondary mr-2"
         >
-          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+          GitHub
+          <i class="fa fa-github fa-lg" aria-hidden="true">&nbsp;</i>
         </a>
       </b-navbar-nav>
     </b-collapse>
