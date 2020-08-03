@@ -5,7 +5,7 @@
         <div>
           <b-card-group deck>
             <b-card header="Question Navigation" header-tag="header">
-              <b-list-group-item>
+              <b-list-group-item class="p-2">
                 <b-avatar variant="info" text=" "></b-avatar>Unattempted
                 <b-avatar class="answered" text=" "></b-avatar>Attempted
               </b-list-group-item>
@@ -29,7 +29,7 @@
         </div>
       </b-col>
       <b-col sm="6">
-        <h3 class="text-info">Please Submit after answering all questions you want..</h3>
+        <h4 class="text-info">Please Submit after answering all questions you want..</h4>
         <b-jumbotron bg-variant="default">
           <template v-slot:lead>
             Q.{{ currentQuestion + 1 }}) &nbsp;
