@@ -1,7 +1,8 @@
 # Time For Quiz
 
-This project is Developed in Vue JS and the question and their corresponding answers are fetched by Open TDB API.
-We can choose from over 25 category where we want to attempt a Quiz and toogle to all the questions and score & accurracy on submission of quiz.
+Designed a Quiz website using Vue JS where the questions and its answers are fetched from Open Trivia DB API. 
+The user can choose how many questions he wants, a category from 24 options and the difficulty level for the quiz. 
+Also provided a side navigation bar where use can jump to any question which also shows which questions are attempted and which are not. On submitting it shows the score, accuracy, the correct answers, and option for a new Quiz.
 
 ## Project setup
 ```
