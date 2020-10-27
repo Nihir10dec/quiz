@@ -1,13 +1,11 @@
 # Time For Quiz
 
-![Home Page](/quiz/quiz-mobile.jpg "Homepage")
-
 Designed a Quiz website using Vue JS where the questions and its answers are fetched from Open Trivia DB API. 
 The user can choose how many questions he wants, a category from 24 options and the difficulty level for the quiz. 
 Also provided a side navigation bar where use can jump to any question which also shows which questions are attempted and which are not. On submitting it shows the score, accuracy, the correct answers, and option for a new Quiz.
-
+![Home Page](/quiz/quiz-mobile.jpg "Homepage")
+![Question Answer](/quiz/quiz-tablet.jpg "Question Answers")
 ![Final Page](/quiz/quiz.jpg "After Submission")
-
 
 ## Project setup
 ```
